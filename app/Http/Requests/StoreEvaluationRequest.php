@@ -11,9 +11,8 @@ class StoreEvaluationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,7 +21,10 @@ class StoreEvaluationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'date' => 'required|date',
+            'note' => 'required|integer|min:0|max:20',
+            'etudiant_id' => 'required|exists:etudiants,id',
+            'matiere_id' => 'required|exists:matieres,id',
         ];
     }
 }

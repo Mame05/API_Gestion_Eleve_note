@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Evaluation extends Model
 {
     use HasFactory;
-    protected $gardeu=[];
+    //protected $gardeu=[];
+    protected $fillable = ['date', 'note', 'etudiant_id', 'matiere_id'];
     public function etudiants(){
         return $this->belongsTo(Etudiant::class);
     }

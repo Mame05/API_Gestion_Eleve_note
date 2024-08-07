@@ -29,7 +29,20 @@ class EvaluationController extends Controller
      */
     public function store(StoreEvaluationRequest $request)
     {
-        //
+        $request->validate([
+            'date' => 'required|date',
+            'note' => 'required|integer|min:0|max:20',
+            'etudiant_id' => 'required|exists:etudiants,id',
+            'matiere_id' => 'required|exists:matieres,id',
+        ]);
+
+        // Création de l'évaluation
+        $evaluation = Evaluation::create($request->all());
+
+        return response()->json([
+            'message' => 'Note ajoutée avec succès',
+            'data' => $evaluation
+        ], 201);
     }
 
     /**
@@ -53,7 +66,12 @@ class EvaluationController extends Controller
      */
     public function update(UpdateEvaluationRequest $request, Evaluation $evaluation)
     {
-        //
+        $evaluation->update($request->all());
+
+        return response()->json([
+            'message' => 'Note mise à jour avec succès',
+            'data' => $evaluation
+        ], 200);
     }
 
     /**
@@ -61,6 +79,11 @@ class EvaluationController extends Controller
      */
     public function destroy(Evaluation $evaluation)
     {
-        //
+        $evaluation->delete();
+
+        return response()->json([
+            'message' => 'Note supprimée avec succès',
+            'data' => null
+        ], 200);
     }
 }
