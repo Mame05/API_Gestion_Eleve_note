@@ -11,7 +11,7 @@ class UpdateEtudiantRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class UpdateEtudiantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "prenom" => ["required", "string", "max:255"],
+            "nom" => ["required", "string", "max:255"],
+            "adresse" => ["required", "string", "max:255"],
+            "telephone" => ["required", "string", "max:15"],
+            "matricule" => ["required", "string", "max:15"],
+            "date_naissance" => ["required", "date"],
+            "email" => ["required", "string", "max:255"],
+            "mot_de_passe" => ["required", "string", "max:10"],
+            "photo" => ["nullable", "string", "max:2048", "regex:/^(http|https):\/\//i"], // Valider les URL
         ];
     }
 }

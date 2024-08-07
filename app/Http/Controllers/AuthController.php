@@ -33,14 +33,14 @@ class AuthController extends Controller
                 "user" => auth()->user(),
                 "expires_in" => env("JWT_TTL") * 60 . "seconds"
             ]);
-    }
-    public function logout()
-    {
+        }
+        public function logout()
+        {
         auth()->logout();
         return response()->json(["message"=>"Déconnexion reussie"]);
-    }
-    public function refresh()
-    {
+        }
+        public function refresh()
+        {
         $token = auth()->refresh();
         return response()->json([
             "access_token" => $token,
@@ -48,5 +48,5 @@ class AuthController extends Controller
             "user" => auth()->user(),
             "expires_in" => env("JWT_TTL") * 60 . "seconds"
         ]);  
-    }
+        }
 }
