@@ -9,10 +9,7 @@ class UpdateEtudiantRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
-        return true;
-    }
+   
 
     /**
      * Get the validation rules that apply to the request.
@@ -28,9 +25,9 @@ class UpdateEtudiantRequest extends FormRequest
             "telephone" => ["required", "string", "max:15"],
             "matricule" => ["required", "string", "max:15"],
             "date_naissance" => ["required", "date"],
-            "email" => ["required", "string", "max:255"],
-            "mot_de_passe" => ["required", "string", "max:10"],
-            "photo" => ["nullable", "string", "max:2048", "regex:/^(http|https):\/\//i"], // Valider les URL
+            "email" => ["required", "string", "max:255", "unique:users,email,".$this->etudiant->id],
+            "mot_de_passe" => ["nullable", "string", "max:10"],
+            "photo" => ["nullable", "string", "max:2048", "regex:/^(http|https):\/\//i"],
         ];
     }
 }

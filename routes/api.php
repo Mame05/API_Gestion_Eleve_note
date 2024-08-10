@@ -21,11 +21,13 @@ Route::middleware('auth:api')->group(function () {
     Route::post('etudiants/{id}/restore', [EtudiantController::class, "restore"]);
 
     Route::post("refresh", [AuthController::class, "refresh"]);
-    Route::apiResource('etudiants', EtudiantController::class)->only(['index', 'store','show','destroy','update']);
+    Route::apiResource('etudiants', EtudiantController::class);
+    
 
     //CRUD Note Etudiant
 
     Route::post('evaluations', [EvaluationController::class, 'store']);
     Route::put('evaluations/{evaluation}', [EvaluationController::class, 'update']);
     Route::delete('evaluations/{evaluation}', [EvaluationController::class, 'destroy']);
+    
 });

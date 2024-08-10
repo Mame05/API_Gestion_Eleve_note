@@ -20,7 +20,7 @@ class Etudiant extends Model
         'date_naissance',
         'email',
         'mot_de_passe',
-        'photo'
+        'photo',
     ];
     public function evaluations(){
         return $this->hasmany(Evaluation::class);

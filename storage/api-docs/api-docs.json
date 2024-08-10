@@ -23,6 +23,145 @@
         "multipart/form-data"
     ],
     "paths": {
+        "/api/logout": {
+            "post": {
+                "summary": "logout",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Authentification"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/login": {
+            "post": {
+                "summary": "login",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Authentification"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "",
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "email": "admin@gmail.com",
+                                "password": "password"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/evaluations/{evaluation}": {
             "delete": {
                 "summary": "Supprimer une note",
@@ -150,8 +289,8 @@
                             },
                             "example": {
                                 "date": "2023-08-01",
-                                "note": 18,
-                                "etudiant_id": 1,
+                                "note": 5,
+                                "etudiant_id": 7,
                                 "matiere_id": 2
                             }
                         }
@@ -232,9 +371,9 @@
                                 }
                             },
                             "example": {
-                                "date": "2024-08-07",
-                                "note": 8,
-                                "etudiant_id": 6,
+                                "date": "2023-08-07",
+                                "note": 20,
+                                "etudiant_id": 7,
                                 "matiere_id": 3
                             }
                         }
@@ -242,7 +381,7 @@
                 }
             }
         },
-        "/api/etudiants/{etudiant}/restore": {
+        "/api/etudiants/{id}/restore": {
             "post": {
                 "summary": "Restorer un etudiant",
                 "description": "",
@@ -290,7 +429,7 @@
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "etudiant",
+                        "name": "id",
                         "type": "string"
                     },
                     {
@@ -301,7 +440,7 @@
                 ]
             }
         },
-        "/api/etudiants/{etudiant}": {
+        "/api/etudiants/{id}": {
             "delete": {
                 "summary": "Archiver un etudiant",
                 "description": "",
@@ -349,7 +488,12 @@
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "etudiant",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "",
                         "type": "string"
                     },
                     {
@@ -397,7 +541,7 @@
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "etudiant",
+                        "name": "id",
                         "type": "string"
                     },
                     {
@@ -405,10 +549,59 @@
                         "name": "User-Agent",
                         "type": "string"
                     }
-                ]
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "adresse": {
+                                        "type": "string"
+                                    },
+                                    "telephone": {
+                                        "type": "string"
+                                    },
+                                    "matricule": {
+                                        "type": "string"
+                                    },
+                                    "date_naissance": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "mot_de_passe": {
+                                        "type": "string"
+                                    },
+                                    "photo": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "prenom": "Fatou",
+                                "nom": "Diallo",
+                                "adresse": "3371 Deckow Prairie Apt. 723\nKlingland, CT 96132",
+                                "telephone": "858.728.1876",
+                                "matricule": "et",
+                                "date_naissance": "1999-10-22",
+                                "email": "zkuvalis@example.net",
+                                "mot_de_passe": "$2y$12$jem6XeKYNKQeq9Bdq8GqJuAmgfhGBjWyUNprADmKZvagcsyGZUQVi",
+                                "photo": "https://example.com/photo.jpg"
+                            }
+                        }
+                    }
+                }
             }
         },
-        "/api/etudiants/{etudiant}/force-delete": {
+        "/api/etudiants/{id}/force-delete": {
             "delete": {
                 "summary": "Supprimer definitivement un etudiant",
                 "description": "",
@@ -456,7 +649,7 @@
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "etudiant",
+                        "name": "id",
                         "type": "string"
                     },
                     {
@@ -643,137 +836,19 @@
                                 }
                             },
                             "example": {
-                                "prenom": "John",
-                                "nom": "Doe",
-                                "adresse": "123 Main St",
-                                "telephone": "123-456-7890",
-                                "matricule": "ABC123",
-                                "date_naissance": "2000-01-01",
-                                "email": "john.doe@example.com",
+                                "prenom": "Fatou",
+                                "nom": "Dièmé",
+                                "adresse": "Darou",
+                                "telephone": "778596856",
+                                "matricule": "PMpolk3",
+                                "date_naissance": "1995-08-01",
+                                "email": "dieme.Fatou@example.com",
                                 "mot_de_passe": "password",
                                 "photo": "https://example.com/photo.jpg"
                             }
                         }
                     }
                 }
-            }
-        },
-        "/api/logout": {
-            "post": {
-                "summary": "logout",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Authentification"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/login": {
-            "post": {
-                "summary": "login",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Authentification"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "email",
-                        "type": "string"
-                    },
-                    {
-                        "in": "path",
-                        "name": "password",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
             }
         }
     }

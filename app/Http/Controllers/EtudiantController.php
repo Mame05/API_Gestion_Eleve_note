@@ -6,6 +6,7 @@ use App\Models\Etudiant;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\StoreEtudiantRequest;
 use App\Http\Requests\UpdateEtudiantRequest;
+use Illuminate\Http\Request;
 
 class EtudiantController extends Controller
 {
@@ -49,8 +50,8 @@ class EtudiantController extends Controller
         // Save the student record
         $etudiant->save();
 
-          
-        return $this->customJsonResponse("Livre crée avec succées",$etudiant);
+
+        return $this->customJsonResponse("Etudiant ajouté avec succées",$etudiant);
     }
 
     /**
@@ -72,28 +73,17 @@ class EtudiantController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEtudiantRequest $request, Etudiant $etudiant)
+    public function update(Request $request, Etudiant $etudiant)
     {
-        $etudiant->fill($request->validated());
+        // Met à jour tous les champs envoyés dans la requête
+        $etudiant->update($request->all());
 
-        // Vérifier si la photo est une URL
-        if ($request->has('photo') && filter_var($request->input('photo'), FILTER_VALIDATE_URL)) {
-            $etudiant->photo = $request->input('photo');
-        }
-    
-        // Vérifier si la photo est un fichier téléchargé
-        if ($request->hasFile('photo')) {
-            if (File::exists(public_path("storage/" . $etudiant->photo))) {
-                File::delete(public_path("storage/" . $etudiant->photo));
-            }
-            $photo = $request->file('photo');
-            $etudiant->photo = $photo->store('etudiants', 'public');
-        }
-    
-        $etudiant->save();
-    
-        return $this->customJsonResponse("Etudiant modifié avec succès", $etudiant);
+        return response()->json([
+            'message' => 'Étudiant modifié avec succès.',
+            'etudiant' => $etudiant
+        ]);
     }
+
 
     /**
      * Remove the specified resource from storage.
